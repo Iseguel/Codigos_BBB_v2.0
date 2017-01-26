@@ -47,14 +47,16 @@ Point2f mc = Point(320,480); //640x480
 float dWidth;
 float dHeight;
 
+int Muestras = 15;
+
 
 vector<Vec4i> hierarchy;
 
 float DC_X = 3;
 float DC_Y = 3;
 float tiempo = 1350000;
-float anguloVectMCX[15];
-float anguloVectMCY[15]; 
+float VectMCX[15];
+float VectMCY[15]; 
 float angulo, anguloPromedio;
 double margen = 300000;
 float mcFx;
@@ -64,7 +66,7 @@ float mcFy;
 //BlackPWM ServoY (P8_19);
 
 void centroDeMasa(Mat maskResult);
-void ActualizaVect();
+void ActualizaVect(int Muestras);
 float VectorDir();
 float Distancia(float X1, float Y1, float X2, float Y2);
 float CalcAngulo(float HIP, float CATOP, int mcX);
@@ -166,24 +168,12 @@ int main( int argc, char** argv )
     dilate(mask, temp, Mat(), Point(-1,-1), niters);
     dilate(temp, temp, Mat(), Point(-1,-1), niters);
     erode(temp, mask, Mat(), Point(-1,-1), niters*2);
-    
-    //imshow("Mascara actual", mask); 
-    //Busca contornos y los dibuja
-    
 
-    
     centroDeMasa(mask);
 
+    ActualizaVect(Muestras);
 
-///*
-
-    ActualizaVect();
-
-    //cout << "mcFx:" << anguloVectMCX[0];
-    //cout << "  mcFy:" << anguloVectMCY[0] << endl;
-
-
-    if(cont==15){                
+    if(cont == Muestras){                
         VectorDir();    
         GIRO(Angulo);
         //Motores(DC_X, DC_Y, tiempo);
@@ -269,55 +259,17 @@ void centroDeMasa(Mat maskResult){
         return;
 }
 
-void ActualizaVect(){
+void ActualizaVect(int Muestras){
 
-    anguloVectMCX[15] = anguloVectMCX[14];
-    anguloVectMCY[15] = anguloVectMCY[14];
-
-    anguloVectMCX[14] = anguloVectMCX[13];
-    anguloVectMCY[14] = anguloVectMCY[13];
-
-    anguloVectMCX[13] = anguloVectMCX[12];
-    anguloVectMCY[13] = anguloVectMCY[12];
-
-    anguloVectMCX[12] = anguloVectMCX[11];
-    anguloVectMCY[12] = anguloVectMCY[11];
-
-    anguloVectMCX[11] = anguloVectMCX[10];
-    anguloVectMCY[11] = anguloVectMCY[10];
-
-    anguloVectMCX[10] = anguloVectMCX[9];
-    anguloVectMCY[10] = anguloVectMCY[9];
-
-    anguloVectMCX[9] = anguloVectMCX[8];
-    anguloVectMCY[9] = anguloVectMCY[8];
-
-    anguloVectMCX[8] = anguloVectMCX[7];
-    anguloVectMCY[8] = anguloVectMCY[7];
-
-    anguloVectMCX[7] = anguloVectMCX[6];
-    anguloVectMCY[7] = anguloVectMCY[6];
-
-    anguloVectMCX[6] = anguloVectMCX[5];
-    anguloVectMCY[6] = anguloVectMCY[5];
-
-    anguloVectMCX[5] = anguloVectMCX[4];
-    anguloVectMCY[5] = anguloVectMCY[4];
-//*/
-    anguloVectMCX[4] = anguloVectMCX[3];
-    anguloVectMCY[4] = anguloVectMCY[3];
-
-    anguloVectMCX[3] = anguloVectMCX[2];
-    anguloVectMCY[3] = anguloVectMCY[2];
-
-    anguloVectMCX[2] = anguloVectMCX[1];
-    anguloVectMCY[2] = anguloVectMCY[1];
     
-    anguloVectMCX[1] = anguloVectMCX[0];
-    anguloVectMCY[1] = anguloVectMCY[0];
-    
-    anguloVectMCX[0] = mc.x; 
-    anguloVectMCY[0] = mc.y;
+    for(int num = Muestras; num > 0; num--){
+
+        VectMCX[num] = VectMCX[num-1];
+        VectMCY[num] = VectMCY[num-1];
+        
+    }
+    VectMCX[0] = mc.x; 
+    VectMCY[0] = mc.y;
 
     return;
 
@@ -329,15 +281,15 @@ float VectorDir(){
         mcFx = 0;
         mcFy = 0;
 
-        for(int f = 0; f < 15; f++){
+        for(int f = 0; f < Muestras; f++){
             //cout << "Nro:" << f<< endl;
-            mcFx = mcFx + anguloVectMCX[f];
-            //cout << "vectX:" << anguloVectMCX[f];
-            mcFy = mcFy + anguloVectMCY[f];
-            //cout << "  VectY:" << anguloVectMCX[f] << endl;
+            mcFx = mcFx + VectMCX[f];
+            //cout << "vectX:" << VectMCX[f];
+            mcFy = mcFy + VectMCY[f];
+            //cout << "  VectY:" << VectMCX[f] << endl;
         }
-        mcFx = (mcFx/15);
-        mcFy = (mcFy/15);
+        mcFx = (mcFx/Muestras);
+        mcFy = (mcFy/Muestras);
 
         //cout << "mcFx:" << mcFx;
         //cout << "  mcFy:" << mcFy << endl;
