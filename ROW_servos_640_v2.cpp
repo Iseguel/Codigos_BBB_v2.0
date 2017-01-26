@@ -7,6 +7,7 @@
 
 Codigo para deteccion de senderos en base a color
 segmentando con Floodfil
+
 */
 
 #include "opencv2/imgproc/imgproc.hpp"
@@ -126,14 +127,14 @@ int main( int argc, char** argv )
     cout << "Tamaño cuadro : " << dWidth << " x " << dHeight << endl;
     //cout << "Cuadros por segundo : " << fps << endl;
 
-    //namedWindow("Video",CV_WINDOW_AUTOSIZE); //crea una ventana con el nombre "Video"
+    namedWindow("Video",CV_WINDOW_AUTOSIZE); //crea una ventana con el nombre "Video"
 
-    //createTrackbar( "lo_diff", "Video", &loDiff, 255, 0 );
-    //createTrackbar( "up_diff", "Video", &upDiff, 255, 0 );
+    createTrackbar( "lo_diff", "Video", &loDiff, 255, 0 );
+    createTrackbar( "up_diff", "Video", &upDiff, 255, 0 );
 
     mask.create(dHeight+2, dWidth+2, CV_8UC1);
 
-    //VideoWriter wrtSRC("ROW_v2.0_320.avi", CV_FOURCC('X','V','I','D'), 15/2, Size(320,240));
+    //VideoWriter wrtSRC("ROW_v2.0_320.avi", CV_FOURCC('X','V','I','D'), 15/2, Size(640,320));
     
   while(true)
   {
