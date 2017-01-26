@@ -64,6 +64,7 @@ float mcFy;
 //BlackPWM ServoY (P8_19);
 
 void centroDeMasa(Mat maskResult);
+void ActualizaVect();
 float VectorDir();
 float Distancia(float X1, float Y1, float X2, float Y2);
 float CalcAngulo(float HIP, float CATOP, int mcX);
@@ -172,54 +173,11 @@ int main( int argc, char** argv )
 
     
     centroDeMasa(mask);
+
+
 ///*
-    anguloVectMCX[15] = anguloVectMCX[14];
-    anguloVectMCY[15] = anguloVectMCY[14];
 
-    anguloVectMCX[14] = anguloVectMCX[13];
-    anguloVectMCY[14] = anguloVectMCY[13];
-
-    anguloVectMCX[13] = anguloVectMCX[12];
-    anguloVectMCY[13] = anguloVectMCY[12];
-
-    anguloVectMCX[12] = anguloVectMCX[11];
-    anguloVectMCY[12] = anguloVectMCY[11];
-
-    anguloVectMCX[11] = anguloVectMCX[10];
-    anguloVectMCY[11] = anguloVectMCY[10];
-
-    anguloVectMCX[10] = anguloVectMCX[9];
-    anguloVectMCY[10] = anguloVectMCY[9];
-
-    anguloVectMCX[9] = anguloVectMCX[8];
-    anguloVectMCY[9] = anguloVectMCY[8];
-
-    anguloVectMCX[8] = anguloVectMCX[7];
-    anguloVectMCY[8] = anguloVectMCY[7];
-
-    anguloVectMCX[7] = anguloVectMCX[6];
-    anguloVectMCY[7] = anguloVectMCY[6];
-
-    anguloVectMCX[6] = anguloVectMCX[5];
-    anguloVectMCY[6] = anguloVectMCY[5];
-
-    anguloVectMCX[5] = anguloVectMCX[4];
-    anguloVectMCY[5] = anguloVectMCY[4];
-//*/
-    anguloVectMCX[4] = anguloVectMCX[3];
-    anguloVectMCY[4] = anguloVectMCY[3];
-
-    anguloVectMCX[3] = anguloVectMCX[2];
-    anguloVectMCY[3] = anguloVectMCY[2];
-
-    anguloVectMCX[2] = anguloVectMCX[1];
-    anguloVectMCY[2] = anguloVectMCY[1];
-    
-    anguloVectMCX[1] = anguloVectMCX[0];
-    anguloVectMCY[1] = anguloVectMCY[0];
-    
-    anguloVectMCX[0] = mc.x; 
-    anguloVectMCY[0] = mc.y;
+    ActualizaVect();
 
     //cout << "mcFx:" << anguloVectMCX[0];
     //cout << "  mcFy:" << anguloVectMCY[0] << endl;
@@ -309,6 +267,60 @@ void centroDeMasa(Mat maskResult){
         drawContours( src, contours, -1, Scalar(240,50,0), 2, CV_AA, hierarchy, abs(4) );
 
         return;
+}
+
+void ActualizaVect(){
+
+    anguloVectMCX[15] = anguloVectMCX[14];
+    anguloVectMCY[15] = anguloVectMCY[14];
+
+    anguloVectMCX[14] = anguloVectMCX[13];
+    anguloVectMCY[14] = anguloVectMCY[13];
+
+    anguloVectMCX[13] = anguloVectMCX[12];
+    anguloVectMCY[13] = anguloVectMCY[12];
+
+    anguloVectMCX[12] = anguloVectMCX[11];
+    anguloVectMCY[12] = anguloVectMCY[11];
+
+    anguloVectMCX[11] = anguloVectMCX[10];
+    anguloVectMCY[11] = anguloVectMCY[10];
+
+    anguloVectMCX[10] = anguloVectMCX[9];
+    anguloVectMCY[10] = anguloVectMCY[9];
+
+    anguloVectMCX[9] = anguloVectMCX[8];
+    anguloVectMCY[9] = anguloVectMCY[8];
+
+    anguloVectMCX[8] = anguloVectMCX[7];
+    anguloVectMCY[8] = anguloVectMCY[7];
+
+    anguloVectMCX[7] = anguloVectMCX[6];
+    anguloVectMCY[7] = anguloVectMCY[6];
+
+    anguloVectMCX[6] = anguloVectMCX[5];
+    anguloVectMCY[6] = anguloVectMCY[5];
+
+    anguloVectMCX[5] = anguloVectMCX[4];
+    anguloVectMCY[5] = anguloVectMCY[4];
+//*/
+    anguloVectMCX[4] = anguloVectMCX[3];
+    anguloVectMCY[4] = anguloVectMCY[3];
+
+    anguloVectMCX[3] = anguloVectMCX[2];
+    anguloVectMCY[3] = anguloVectMCY[2];
+
+    anguloVectMCX[2] = anguloVectMCX[1];
+    anguloVectMCY[2] = anguloVectMCY[1];
+    
+    anguloVectMCX[1] = anguloVectMCX[0];
+    anguloVectMCY[1] = anguloVectMCY[0];
+    
+    anguloVectMCX[0] = mc.x; 
+    anguloVectMCY[0] = mc.y;
+
+    return;
+
 }
 
 
